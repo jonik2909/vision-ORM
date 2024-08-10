@@ -15,14 +15,14 @@ app.set("view engine", "ejs");
 
 // 4 Routing code
 
-const taskRepository = con.getRepository(Task);
+const visionRepository = con.getRepository(Task);
 
 app.post("/create-item", async (req, res) => {
   try {
     console.log("/create-item");
     const { visionName } = req.body;
 
-    const result = await taskRepository.save({ visionName: visionName });
+    const result = await visionRepository.save({ visionName: visionName });
     console.log("result:", result);
 
     res.json(result);
@@ -32,11 +32,57 @@ app.post("/create-item", async (req, res) => {
   }
 });
 
+app.post("/edit-item", async (req, res) => {
+  try {
+    console.log("/edit-item");
+    const { id, visionName } = req.body;
+
+    const result = await visionRepository.update(
+      { id: id },
+      { visionName: visionName }
+    );
+    console.log("result:", result);
+
+    res.json({ state: "success" });
+  } catch (err) {
+    console.log("Error, /edit-item:", err);
+    res.end("something went wrong");
+  }
+});
+
+app.post("/delete-item", async (req, res) => {
+  try {
+    console.log("/delete-item");
+    const { id } = req.body;
+
+    const result = await visionRepository.delete({ id: id });
+    console.log("result:", result);
+
+    res.json({ state: "success" });
+  } catch (err) {
+    console.log("Error, /delete-item:", err);
+    res.end("something went wrong");
+  }
+});
+
+app.post("/delete-all", async (req, res) => {
+  try {
+    console.log("/delete-all");
+    const result = await visionRepository.clear();
+    console.log("result:", result);
+
+    res.json({ state: "All Visions are removed!" });
+  } catch (err) {
+    console.log("Error, /delete-all:", err);
+    res.end("something went wrong");
+  }
+});
+
 app.get("/", async (req, res) => {
   try {
     console.log("/");
 
-    const result = await taskRepository.find();
+    const result = await visionRepository.find();
     console.log("result:", result);
 
     res.render("list", { items: result });

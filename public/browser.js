@@ -27,7 +27,6 @@ document.getElementById("create-form").addEventListener("submit", function (e) {
   axios
     .post("/create-item", { visionName: createField.value })
     .then((response) => {
-      console.log("response:", response);
       document
         .getElementById("item-list")
         .insertAdjacentHTML("beforeend", itemTemplate(response.data));
