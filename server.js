@@ -1,11 +1,5 @@
-const dotenv = require("dotenv");
-dotenv.config();
 const http = require("http");
 const AppDataSource = require("./data-source");
-
-dotenv.config({
-  path: process.env.NODE_ENV === "production" ? ".env.production" : ".env",
-});
 
 AppDataSource.initialize()
   .then(async (connection) => {

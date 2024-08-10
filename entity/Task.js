@@ -1,19 +1,16 @@
 const { EntitySchema } = require("typeorm");
 
 module.exports = new EntitySchema({
-  name: "Task",
-  tableName: "tasks",
+  name: "Vision",
+  tableName: "vision",
   columns: {
     id: {
       primary: true,
       type: "uuid",
       generated: "uuid",
     },
-    taskName: {
+    visionName: {
       type: "varchar",
-    },
-    taskCompleted: {
-      type: "boolean",
     },
   },
 });
